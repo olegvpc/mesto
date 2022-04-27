@@ -27,6 +27,16 @@
 * [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
 В макете в «Фигме» показан дизайн страницы для ширины в 320, 768, 1024 и 1280 пикселей.
 
+**Спринт 4:**
+Вёрстка:
+* добавлен popup редактирования профиля
+* предусмотренно переполнение содержимого в блоке
+```css
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+```
+* grid сетка для фотографий
 
 ### Автор:
 
