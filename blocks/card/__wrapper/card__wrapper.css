@@ -1,0 +1,10 @@
+.card__wrapper {
+  display: flex;
+  background-color: #ffffff;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  /* width: 246px; */
+  /* margin: 25px auto 31px 21px; */
+  padding: 0
+}
