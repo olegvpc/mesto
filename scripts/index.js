@@ -1,5 +1,5 @@
 const profileEditBtn = document.querySelector(".profile__edit-btn");
-const profileEdit = document.querySelector(".popup_profile");
+const profileEdit = document.querySelector(".popup");
 const profileEditBtnClose = document.querySelector(".popup__btn-close");
 
 const formElement = document.querySelector(".popup__form");
@@ -7,17 +7,15 @@ const formElement = document.querySelector(".popup__form");
 const formNameInput = formElement.querySelector("#popup-name");
 const formAboutInput = formElement.querySelector("#popup-about");
 
-profileEditBtn.addEventListener("click", EditProfile);
+profileEditBtn.addEventListener("click", editProfile);
 
-function EditProfile() {
-  // console.log("HELLO");
+function editProfile() {
   profileEdit.classList.add("popup_opened");
 };
 
-profileEditBtnClose.addEventListener("click", EditProfileClose);
+profileEditBtnClose.addEventListener("click", editProfileClose);
 
-function EditProfileClose() {
-  // console.log("BUY");
+function editProfileClose() {
   profileEdit.classList.remove("popup_opened");
 };
 
@@ -28,10 +26,12 @@ function formSubmitHandler (event) {
     let editedValueAbout = formAboutInput.value;
 
     let newName = document.querySelector(".profile__name");
-    let newAbaut = document.querySelector(".profile__about");
+    let newAbout = document.querySelector(".profile__about");
 
     newName.textContent = editedValueName;
-    newAbaut.textContent = editedValueAbout;
+    newAbout.textContent = editedValueAbout;
+
+    editProfileClose();
 }
 
 formElement.addEventListener('submit', formSubmitHandler);

@@ -10,106 +10,109 @@
     <link rel="stylesheet" href="./pages/index.css">
   </head>
   <body class="page">
-    <header class="header">
-      <a href="#">
-        <img class="header__logo page__button" src='./images/logo.svg' alt="логотип сайта Место.">
-      </a>
-    </header>
 
-      <!-- block MAIN -->
-    <main class="content">
-      <section class="profile">
-        <img class="profile__avatar" src="./images/ZHak-Iv-Kusto.jpg" alt="Аватар профиля">
-        <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-btn page__button" title="Редактировать профиль" type="button"></button>
-          <p class="profile__about">Исследователь океана</p>
+    <div class="page__content">
+      <header class="page__header header">
+        <a href="#">
+          <img class="header__logo transition" src='./images/logo.svg' alt="логотип сайта Место">
+        </a>
+      </header>
+        <!-- block MAIN -->
+      <main class="page__main content">
+        <section class="profile">
+          <img class="profile__avatar" src="./images/image.jpg" alt="Аватар профиля">
+          <div class="profile__info">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="profile__edit-btn transition" title="Редактировать профиль" type="button"></button>
+            <p class="profile__about">Исследователь океана</p>
+          </div>
+          <button class="profile__add-btn transition" title="Добавить новую фотографию" type="button"></button>
+        </section>
+
+          <!--block CARDS-->
+        <section class="cards">
+          <ul class="cards__list">
+            <li class="cards__item">
+              <figure class="card">
+                <img class="card__image" src="./images/photo-grid-sochi.jpg" alt="вид на Сочи">
+                <div class="card__wrapper">
+                  <h2 class="card__title">Горы в Сочи</h2>
+                  <button class="card__like transition"></button>
+                </div>
+              </figure>
+            </li>
+            <li class="cards__item">
+              <figure class="card">
+                <img class="card__image" src="./images/photo-grid-baikal.jpg" alt="вид на Байкал">
+                <div class="card__wrapper">
+                  <h2 class="card__title">Вид на Байкал летом</h2>
+                  <button class="card__like transition"></button>
+                </div>
+              </figure>
+            </li>
+            <li class="cards__item">
+              <figure class="card">
+                <img class="card__image" src="./images/photo-grid-tuman.jpg" alt="вид на туман">
+                <div class="card__wrapper">
+                  <h2 class="card__title">Туман</h2>
+                  <button class="card__like transition"></button>
+                </div>
+              </figure>
+            </li>
+            <li class="cards__item">
+              <figure class="card">
+                <img class="card__image" src="./images/photo-grid-train.jpg" alt="вид из поезда">
+                <div class="card__wrapper">
+                  <h2 class="card__title">Вид из окна поезда</h2>
+                  <button class="card__like transition"></button>
+                </div>
+              </figure>
+            </li>
+            <li class="cards__item">
+              <figure class="card">
+                <img class="card__image" src="./images/photo-grid-atharva-tulsi.jpg" alt="вид на горы кавказа">
+                <div class="card__wrapper">
+                  <h2 class="card__title">Горы с высоты самолета</h2>
+                  <button class="card__like transition"></button>
+                </div>
+              </figure>
+            </li>
+            <li class="cards__item">
+              <figure class="card">
+                <img class="card__image" src="./images/photo-grid-baikal-2.jpg" alt="вид на Байкал">
+                <div class="card__wrapper">
+                  <h2 class="card__title">Байкал</h2>
+                  <button class="card__like transition"></button>
+                </div>
+              </figure>
+            </li>
+          </ul>
+        </section>
+          <!--end CARDS-->
+      </main>
+
+      <footer class="page__footer footer">
+        <p class="footer__copyright">&copy;2022 Mesto Russia</p>
+      </footer>
+
+        <!--popup редактирования профиля-->
+      <div class="popup">
+        <div class="popup__container">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <form class="popup__form" name="form-change-name">
+            <fieldset class="popup__fieldset">
+              <input class="popup__input" id="popup-name" name="new-name" type="text"  value="Жак-Ив Кусто"
+              placeholder="Введите свое имя" autocomplete="off" required>
+              <input class="popup__input" id="popup-about" name="new-about" type="text" value="Исследователь океана"
+              placeholder="Введите описание" autocomplete="off" required>
+              <button class="popup__btn-save transition" name="submit" type="submit">Сохранить</button>
+            </fieldset>
+          </form>
+          <button aria-label="закрыть форму" class="popup__btn-close transition" type="button"></button>
         </div>
-        <button class="profile__add-btn page__button" title="Добавить новую фотографию" type="button"></button>
-      </section>
-
-        <!--block CARDS-->
-      <section class="cards">
-        <ul class="cards__list">
-          <li class="cards__item">
-            <figure class="card">
-              <img class="card__image" src="./images/photo-grid-sochi.jpg" alt="вид на Сочи">
-              <div class="card__wrapper">
-                <h2 class="card__title">Горы в Сочи</h2>
-                <button class="card__like page__button"></button>
-              </div>
-            </figure>
-          </li>
-          <li class="cards__item">
-            <figure class="card">
-              <img class="card__image" src="./images/photo-grid-baikal.jpg" alt="вид на Байкал">
-              <div class="card__wrapper">
-                <h2 class="card__title">Вид на Байкал летом</h2>
-                <button class="card__like page__button"></button>
-              </div>
-            </figure>
-          </li>
-          <li class="cards__item">
-            <figure class="card">
-              <img class="card__image" src="./images/photo-grid-tuman.jpg" alt="вид на туман">
-              <div class="card__wrapper">
-                <h2 class="card__title">Туман</h2>
-                <button class="card__like page__button"></button>
-              </div>
-            </figure>
-          </li>
-          <li class="cards__item">
-            <figure class="card">
-              <img class="card__image" src="./images/photo-grid-train.jpg" alt="вид из поезда">
-              <div class="card__wrapper">
-                <h2 class="card__title">Вид из окна поезда</h2>
-                <button class="card__like page__button"></button>
-              </div>
-            </figure>
-          </li>
-          <li class="cards__item">
-            <figure class="card">
-              <img class="card__image" src="./images/photo-grid-atharva-tulsi.jpg" alt="вид на горы кавказа">
-              <div class="card__wrapper">
-                <h2 class="card__title">Горы с высоты самолета</h2>
-                <button class="card__like page__button"></button>
-              </div>
-            </figure>
-          </li>
-          <li class="cards__item">
-            <figure class="card">
-              <img class="card__image" src="./images/photo-grid-baikal-2.jpg" alt="вид на Байкал">
-              <div class="card__wrapper">
-                <h2 class="card__title">Байкал</h2>
-                <button class="card__like page__button"></button>
-              </div>
-            </figure>
-          </li>
-        </ul>
-      </section>
-        <!--end CARDS-->
-    </main>
-    <footer class="footer">
-      <p class="footer__copyright">&copy;2022 Mesto Russia</p>
-    </footer>
-
-      <!--popup редактирования профиля-->
-    <article class="popup popup_profile">
-      <div class="popup__container">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="ChangeNameForm">
-          <fieldset class="popup__fieldset">
-            <input class="popup__input" id="popup-name" name="name" type="text"  value="Жак-Ив Кусто"
-            placeholder="Введите свое имя" autocomplete="off" required>
-            <input class="popup__input" id="popup-about" name="about" type="text" value="Исследователь океана"
-            placeholder="Введите описание" autocomplete="off" required>
-            <button class="popup__btn-save" name="submit" type="submit">Сохранить</button>
-          </fieldset>
-        </form>
-        <button aria-label="закрыть форму" class="popup__btn-close" type="button"></button>
-      </div>
-    </article>
-    <script src="./index.js"></script>
+      </div>  <!-- Конец блока popup -->
+    </div>  <!-- Конец блока container -->
+    <script src="./scripts/index.js"></script>
   </body>
 </html>
 
