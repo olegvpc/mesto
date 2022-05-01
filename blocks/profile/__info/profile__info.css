@@ -5,7 +5,6 @@
   grid-template-columns: 1fr min-content;
   gap: 0 1px;
   align-items: baseline;
-  /* border: 1px solid lightgreen; */
 }
 
 @media screen and (max-width: 1140px) {
