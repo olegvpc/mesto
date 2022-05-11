@@ -32,63 +32,26 @@
           <!--block CARDS-->
         <section class="cards">
           <ul class="cards__list">
-            <li class="cards__item">
-              <figure class="card">
-                <img class="card__image" src="./images/photo-grid-sochi.jpg" alt="вид на Сочи">
-                <div class="card__wrapper">
-                  <h2 class="card__title">Горы в Сочи</h2>
-                  <button class="card__like transition"></button>
-                </div>
-              </figure>
-            </li>
-            <li class="cards__item">
-              <figure class="card">
-                <img class="card__image" src="./images/photo-grid-baikal.jpg" alt="вид на Байкал">
-                <div class="card__wrapper">
-                  <h2 class="card__title">Вид на Байкал летом</h2>
-                  <button class="card__like transition"></button>
-                </div>
-              </figure>
-            </li>
-            <li class="cards__item">
-              <figure class="card">
-                <img class="card__image" src="./images/photo-grid-tuman.jpg" alt="вид на туман">
-                <div class="card__wrapper">
-                  <h2 class="card__title">Туман</h2>
-                  <button class="card__like transition"></button>
-                </div>
-              </figure>
-            </li>
-            <li class="cards__item">
-              <figure class="card">
-                <img class="card__image" src="./images/photo-grid-train.jpg" alt="вид из поезда">
-                <div class="card__wrapper">
-                  <h2 class="card__title">Вид из окна поезда</h2>
-                  <button class="card__like transition"></button>
-                </div>
-              </figure>
-            </li>
-            <li class="cards__item">
-              <figure class="card">
-                <img class="card__image" src="./images/photo-grid-atharva-tulsi.jpg" alt="вид на горы кавказа">
-                <div class="card__wrapper">
-                  <h2 class="card__title">Горы с высоты самолета</h2>
-                  <button class="card__like transition"></button>
-                </div>
-              </figure>
-            </li>
-            <li class="cards__item">
-              <figure class="card">
-                <img class="card__image" src="./images/photo-grid-baikal-2.jpg" alt="вид на Байкал">
-                <div class="card__wrapper">
-                  <h2 class="card__title">Байкал</h2>
-                  <button class="card__like transition"></button>
-                </div>
-              </figure>
-            </li>
+
           </ul>
         </section>
           <!--end CARDS-->
+
+          <!-- template card -->
+        <template id="card-template">
+          <li class="cards__item">
+            <figure class="card">
+              <button class="card__delete-btn transition" type="button"></button>
+              <img class="card__image" src=# alt="Изображение на фото">
+              <div class="card__wrapper">
+                <h2 class="card__title"></h2>
+                <button class="card__like transition"></button>
+              </div>
+            </figure>
+          </li>
+        </template>
+          <!-- end template card -->
+
       </main>
 
       <footer class="page__footer footer">
@@ -96,10 +59,10 @@
       </footer>
 
         <!--popup редактирования профиля-->
-      <div class="popup">
+      <div class="popup popup_type_profile">
         <div class="popup__container">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <form class="popup__form" name="form-change-name">
+          <form class="popup__form" id="popup-form-profile" name="form-change-name">
             <fieldset class="popup__fieldset">
               <input class="popup__input" id="popup-name" name="new-name" type="text"  value="Жак-Ив Кусто"
               placeholder="Введите свое имя" autocomplete="off" required>
@@ -108,9 +71,36 @@
               <button class="popup__btn-save transition" name="submit" type="submit">Сохранить</button>
             </fieldset>
           </form>
-          <button aria-label="закрыть форму" class="popup__btn-close transition" type="button"></button>
+          <button aria-label="закрыть форму" class="popup__btn-close transition" id="popup-profile-btn-close" type="button"></button>
         </div>
-      </div>  <!-- Конец блока popup -->
+      </div>
+
+        <!--popup добавления нового фото-->
+      <div class="popup popup_type_add">
+        <div class="popup__container">
+          <h2 class="popup__title">Новое место</h2>
+          <form class="popup__form" id="popup-form-add-photo" name="form-add-photo">
+            <fieldset class="popup__fieldset">
+              <input class="popup__input" id='popup-add-name-photo' name="name" type="text"
+              placeholder="Название" autocomplete="off" required>
+              <input class="popup__input" id='link' name="link" type="url"
+              placeholder="Ссылка на картинку" autocomplete="off" required>
+              <button class="popup__btn-save" name="submit" type="submit">Создать</button>
+            </fieldset>
+          </form>
+          <button aria-label="закрыть форму" class="popup__btn-close transition" id="popup-add-photo-btn-close" type="button"></button>
+        </div>
+      </div>
+
+        <!--popup открытия полноразмерного фото-->
+      <div class="popup popup_show-img" data-type="image">
+        <figure class="popup__frame">
+          <button aria-label="закрыть форму" class="popup__btn-close transition" type="button"></button>
+          <img alt="#" class="popup__photo" src="#">
+          <p class="popup__image-title"></p>
+        </figure>
+      </div>
+
     </div>  <!-- Конец блока container -->
     <script src="./scripts/index.js"></script>
   </body>
