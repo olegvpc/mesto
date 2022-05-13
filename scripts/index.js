@@ -82,11 +82,22 @@ function renderCard(title, link) {
   cardsContainer.prepend(newCard)
 }
 
-// обработчики открытия и закрытия popup
-profileEditBtn.addEventListener("click", () => openPopup(profileEdit)); // click для редактирования
-profileEditBtnClose.addEventListener("click", () => closePopup(profileEdit)); // click для закрытия редактирования
 
-photoAddBtn.addEventListener("click", () => openPopup(photoAddPopup)); // click для добавления фото
+// обработчики открытия и закрытия popup
+// click для редактирования профиля
+profileEditBtn.addEventListener("click", () => {
+  openPopup(profileEdit);
+  formNameInput.value = document.querySelector(".profile__name").textContent; // запись в поле формы значений из html
+  formAboutInput.value = document.querySelector(".profile__about").textContent; // запись в поле формы значений из html
+});
+profileEditBtnClose.addEventListener("click", () => closePopup(profileEdit)); // click для закрытия редактирования профиля
+
+// click для добавления фото
+photoAddBtn.addEventListener("click", () => {
+  openPopup(photoAddPopup);
+  formNamePhotoInput.value = ""; // очистка поля формы при открытии
+  formLinkPhotoInput.value = ""; // очистка поля формы при открытии
+});
 photoAddEditBtnClose .addEventListener("click", () => closePopup(photoAddPopup)) // click для закрытия добавления фото
 
 // click для закрытия popup полноразмерного фото
