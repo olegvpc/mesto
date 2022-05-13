@@ -1,77 +1,62 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+//  popup на корректировку profile
+const profileEditBtn = document.querySelector(".profile__edit-btn"); // кнопка редактирования профайла
+const profileEdit = document.querySelector(".popup_type_profile"); // popup редактирования профайла
+const profileEditBtnClose = document.querySelector("#popup-profile-btn-close"); // кнопка закрытия popup профайла
 
-// popup на корректировку profile
+const formProfileElement = document.querySelector("#popup-form-profile"); // форма профайла
+const formNameInput = formProfileElement.querySelector("#popup-name"); // поле имени профайла
+const formAboutInput = formProfileElement.querySelector("#popup-about"); // поле описания профайла
 
-const profileEditBtn = document.querySelector(".profile__edit-btn");
-const profileEdit = document.querySelector(".popup_type_profile");
-const profileEditBtnClose = document.querySelector("#popup-profile-btn-close");
+//  popup на добавление фото
+const photoAddBtn = document.querySelector(".profile__add-btn"); // кнопка добавления фотографии
+const photoAddPopup = document.querySelector(".popup_type_add"); // popup добавления фотографии
+const photoAddEditBtnClose = document.querySelector("#popup-add-photo-btn-close"); // кнопка закрытия popup add-photo
 
-const formProfileElement = document.querySelector("#popup-form-profile");
+const cardsContainer = document.querySelector(".cards__list") // контейнер новой карточки с фото
 
-const formNameInput = formProfileElement.querySelector("#popup-name");
-const formAboutInput = formProfileElement.querySelector("#popup-about");
+const formElementAddPhoto = document.querySelector("#popup-form-add-photo"); // форма добавления фотографии
+const formNamePhotoInput = formElementAddPhoto.querySelector("#popup-add-name-photo"); // поле ввода описания фото
+const formLinkPhotoInput = formElementAddPhoto.querySelector("#link"); // поле ввода link на фотографию
 
-profileEditBtn.addEventListener("click", editProfile);
+const photoViewPopup = document.querySelector(".popup_show-img"); // popup открытия полноразмерного фото
 
-function editProfile() {
-  profileEdit.classList.add("popup_opened");
-};
+// функции открытия и закрытия popup
+const openPopup = popup => popup.classList.add("popup_opened") // открытие popup
+const closePopup = popup => popup.classList.remove("popup_opened") // закрытие popup
 
-profileEditBtnClose.addEventListener("click", editProfileClose);
+// функции submit формы профайл
+function handleSubmitProfileForm (event) {
+  event.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-function editProfileClose() {
-  profileEdit.classList.remove("popup_opened");
-};
+  const editedValueName = formNameInput.value;
+  const editedValueAbout = formAboutInput.value;
 
-function formSubmitHandler (event) {
-    event.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  document.querySelector(".profile__name").textContent = editedValueName; // присваивание введенных имени в DOM
+  document.querySelector(".profile__about").textContent = editedValueAbout; // присваивание введенного описания профайла в DOM
 
-    let editedValueName = formNameInput.value;
-    let editedValueAbout = formAboutInput.value;
-
-    let newName = document.querySelector(".profile__name");
-    let newAbout = document.querySelector(".profile__about");
-
-    newName.textContent = editedValueName;
-    newAbout.textContent = editedValueAbout;
-
-    editProfileClose();
+  closePopup(profileEdit);
 }
+// функции submit формы добавления фото
+function handleSubmitAddPhotoForm (event) {
+  event.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-formProfileElement.addEventListener('submit', formSubmitHandler);
+  const namePhoto = formNamePhotoInput.value;
+  const linkPhoto = formLinkPhotoInput.value;
+  renderCard(namePhoto, linkPhoto)
 
-// document.querySelector(".popup__btn-save").addEventListener('click', formSubmitHandler); // или так
+  closePopup(photoAddPopup);
+}
+// функция открытия полноразмерного фото
+function viewPhoto(link, title) {
+  openPopup(photoViewPopup)
 
-// Функция добавления фотографии в cards-list включая элементы like и delete и просмотр фото
+  photoViewPopup.querySelector(".popup__photo").src = link;
+  photoViewPopup.querySelector(".popup__photo").alt = title;
+  photoViewPopup.querySelector(".popup__image-title").textContent = title;
+ }
 
-const cardsContainer = document.querySelector(".cards__list")
-
-function addCard(title, link) {
+ // Функция создания card в cards-list и просмотра фото включая слушатели like и delete
+function createCard(title, link) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.cards__item').cloneNode(true);
 
@@ -84,66 +69,32 @@ function addCard(title, link) {
     event.target.classList.toggle("card__like_active");
   })
 
-  // подключение события на открытие фото (только картинку)
-  cardElement.querySelector(".card__image").addEventListener("click", function () {
-
-    const photoImage =  cardElement.querySelector(".card__image"); // элемент img
-    const photoTitle = cardElement.querySelector(".card__title"); // элемент p - title
-
-    const photoViewPopup = document.querySelector(".popup_show-img"); // создаем popup для просмотра фото
-    photoViewPopup.classList.add("popup_opened");
-
-    photoViewPopup.querySelector(".popup__photo").src = photoImage.src;
-    photoViewPopup.querySelector(".popup__photo").alt = photoTitle.textContent;
-    photoViewPopup.querySelector(".popup__image-title").textContent = photoTitle.textContent;
-
-    photoViewPopup.querySelector(".popup__btn-close").addEventListener("click", () => photoViewPopup.classList.remove("popup_opened"))
-
-  })
-
-  // подключение события на delete
+  // подключение события на delete-урну
   cardElement.querySelector(".card__delete-btn").addEventListener("click", () => cardElement.remove())
 
-  cardsContainer.prepend(cardElement);
+  // подключение события (только на картинку) на открытие полного фото
+  cardElement.querySelector(".card__image").addEventListener("click", () => viewPhoto(link, title))
+  return cardElement
 }
+
+function renderCard(title, link) {
+  const newCard = createCard(title, link);
+  cardsContainer.prepend(newCard)
+}
+
+// обработчики открытия и закрытия popup
+profileEditBtn.addEventListener("click", () => openPopup(profileEdit)); // click для редактирования
+profileEditBtnClose.addEventListener("click", () => closePopup(profileEdit)); // click для закрытия редактирования
+
+photoAddBtn.addEventListener("click", () => openPopup(photoAddPopup)); // click для добавления фото
+photoAddEditBtnClose .addEventListener("click", () => closePopup(photoAddPopup)) // click для закрытия добавления фото
+
+// click для закрытия popup полноразмерного фото
+photoViewPopup.querySelector(".popup__btn-close").addEventListener("click", () => closePopup(photoViewPopup));
+
+formProfileElement.addEventListener('submit', handleSubmitProfileForm );
+formElementAddPhoto.addEventListener('submit', handleSubmitAddPhotoForm);
+// document.querySelector(".popup__btn-save").addEventListener('click', handleSubmitAddPhotoForm); // или так
 
 // Начальное добавление 6 card из заготовленного массива initialCards
-
-initialCards.forEach((item) => addCard(item.name, item.link))
-
-// popup на добавление новой фотографии
-
-const photoAddBtn = document.querySelector(".profile__add-btn"); // кнопка добавления фотографии
-const photoAddPopup = document.querySelector(".popup_type_add"); // popup добавления фотографии
-const photoAddEditBtnClose = document.querySelector("#popup-add-photo-btn-close"); // кнопка закрытия popup
-
-const formElementAddPhoto = document.querySelector("#popup-form-add-photo");
-
-const formNamePhotoInput = formElementAddPhoto.querySelector("#popup-add-name-photo");
-const formLinkPhotoInput = formElementAddPhoto.querySelector("#link");
-
-photoAddBtn.addEventListener("click", openPopupAddPhoto);
-photoAddEditBtnClose .addEventListener("click", closePopupAddPhoto)
-
-function openPopupAddPhoto() {
-  photoAddPopup.classList.add("popup_opened");
-};
-
-function closePopupAddPhoto() {
-  photoAddPopup.classList.remove("popup_opened");
-};
-
-function submitHandlerPhoto (event) {
-  event.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-
-  let namePhoto = formNamePhotoInput.value;
-  let linkPhoto = formLinkPhotoInput.value;
-  addCard(namePhoto, linkPhoto)
-
-
-  closePopupAddPhoto();
-}
-
-
-formElementAddPhoto.addEventListener('submit', submitHandlerPhoto);
-
+initialCards.forEach((item) => renderCard(item.name, item.link))
