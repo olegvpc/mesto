@@ -21,16 +21,38 @@ const formLinkPhotoInput = formElementAddPhoto.querySelector("#link"); // пол
 
 const photoViewPopup = document.querySelector(".popup_show-img"); // popup открытия полноразмерного фото
 
+// закрытие всех popup при нажатии на Escape
+function closePopupEscape (evt) {
+  if (evt.key === "Escape") {
+    popups.forEach(popup => closePopup(popup));
+  };
+};
+// закрытие popup при Click на Overlay
+function closePupupOverlay (evt) {
+  if (evt.target.classList.contains("popup")) {
+    const popup = evt.target;
+    closePopup(popup)
+    };
+};
+
 // функции открытия и закрытия popup
-const openPopup = popup => popup.classList.add("popup_opened") // открытие popup
-const closePopup = popup => popup.classList.remove("popup_opened") // закрытие popup
+const openPopup = popup => {
+  popup.classList.add("popup_opened");
+  document.addEventListener("keydown", closePopupEscape);
+  popup.addEventListener("click", closePupupOverlay);
+};
+const closePopup = popup => {
+  popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closePopupEscape);
+  popup.removeEventListener("click", closePupupOverlay);
+};
 
 // функции submit формы профайл
 function handleSubmitProfileForm (event) {
   event.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
   // проверка что кнопка submit активна: в связи с отменой автоматической валидации - остался работать Enter
-  const btnSubmit = event.target.querySelector(".popup__button")
+  const btnSubmit = event.target.querySelector(".popup__button");
 
   if (!btnSubmit.classList.contains("popup__button_disabled")) {
     const editedValueName = formNameInput.value;
@@ -47,21 +69,18 @@ function handleSubmitAddPhotoForm (event) {
   event.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
   // проверка что кнопка submit активна: в связи с отменой автоматической валидации - остался работать Enter
-  const btnSubmit = event.target.querySelector(".popup__button")
+  const btnSubmit = event.target.querySelector(".popup__button");
 
   if (!btnSubmit.classList.contains("popup__button_disabled")) {
     const namePhoto = formNamePhotoInput.value;
     const linkPhoto = formLinkPhotoInput.value;
-    renderCard(namePhoto, linkPhoto)
+    renderCard(namePhoto, linkPhoto);
     closePopup(photoAddPopup);
   }
-
-
-
 }
 // функция открытия полноразмерного фото
 function viewPhoto(link, title) {
-  openPopup(photoViewPopup)
+  openPopup(photoViewPopup);
 
   photoViewPopup.querySelector(".popup__photo").src = link;
   photoViewPopup.querySelector(".popup__photo").alt = title;
@@ -83,16 +102,16 @@ function createCard(title, link) {
   })
 
   // подключение события на delete-урну
-  cardElement.querySelector(".card__delete-btn").addEventListener("click", () => cardElement.remove())
+  cardElement.querySelector(".card__delete-btn").addEventListener("click", () => cardElement.remove());
 
   // подключение события (только на картинку) на открытие полного фото
-  cardElement.querySelector(".card__image").addEventListener("click", () => viewPhoto(link, title))
+  cardElement.querySelector(".card__image").addEventListener("click", () => viewPhoto(link, title));
   return cardElement
 }
 
 function renderCard(title, link) {
   const newCard = createCard(title, link);
-  cardsContainer.prepend(newCard)
+  cardsContainer.prepend(newCard);
 }
 
 
@@ -120,30 +139,14 @@ photoAddBtn.addEventListener("click", () => {
   formNamePhotoInput.value = ""; // очистка поля формы при открытии
   formLinkPhotoInput.value = ""; // очистка поля формы при открытии
 });
-photoAddEditBtnClose .addEventListener("click", () => closePopup(photoAddPopup)) // click для закрытия добавления фото
+photoAddEditBtnClose .addEventListener("click", () => closePopup(photoAddPopup)); // click для закрытия добавления фото
 
 // click для закрытия popup полноразмерного фото
 photoViewPopup.querySelector(".popup__btn-close").addEventListener("click", () => closePopup(photoViewPopup));
-
-// закрытие всех popup при нажатии на Escape
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    popups.forEach(popup => closePopup(popup))
-    // closePopup(photoViewPopup)
-  }
-})
-
-// закрытие всех popup при Click на месте tardet- popup
-document.addEventListener("click", (evt) => {
-  if (evt.target.classList.contains("popup")) {
-    popups.forEach(popup => closePopup(popup))
-    };
-
-})
 
 formProfileElement.addEventListener('submit', handleSubmitProfileForm );
 formElementAddPhoto.addEventListener('submit', handleSubmitAddPhotoForm);
 // document.querySelector(".popup__btn-save").addEventListener('click', handleSubmitAddPhotoForm); // или так
 
 // Начальное добавление 6 card из заготовленного массива initialCards
-initialCards.forEach((item) => renderCard(item.name, item.link))
+initialCards.forEach((item) => renderCard(item.name, item.link));
