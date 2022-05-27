@@ -1,4 +1,5 @@
 //  popup на корректировку profile
+const popups = document.querySelectorAll(".popup")
 const profileEditBtn = document.querySelector(".profile__edit-btn"); // кнопка редактирования профайла
 const profileEdit = document.querySelector(".popup_type_profile"); // popup редактирования профайла
 const profileEditBtnClose = document.querySelector("#popup-profile-btn-close"); // кнопка закрытия popup профайла
@@ -28,23 +29,35 @@ const closePopup = popup => popup.classList.remove("popup_opened") // закры
 function handleSubmitProfileForm (event) {
   event.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  const editedValueName = formNameInput.value;
-  const editedValueAbout = formAboutInput.value;
+  // проверка что кнопка submit активна: в связи с отменой автоматической валидации - остался работать Enter
+  const btnSubmit = event.target.querySelector(".popup__button")
 
-  document.querySelector(".profile__name").textContent = editedValueName; // присваивание введенных имени в DOM
-  document.querySelector(".profile__about").textContent = editedValueAbout; // присваивание введенного описания профайла в DOM
+  if (!btnSubmit.classList.contains("popup__button_disabled")) {
+    const editedValueName = formNameInput.value;
+    const editedValueAbout = formAboutInput.value;
 
-  closePopup(profileEdit);
+    document.querySelector(".profile__name").textContent = editedValueName; // присваивание введенных имени в DOM
+    document.querySelector(".profile__about").textContent = editedValueAbout; // присваивание введенного описания профайла в DOM
+
+    closePopup(profileEdit);
+  }
 }
 // функции submit формы добавления фото
 function handleSubmitAddPhotoForm (event) {
   event.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  const namePhoto = formNamePhotoInput.value;
-  const linkPhoto = formLinkPhotoInput.value;
-  renderCard(namePhoto, linkPhoto)
+  // проверка что кнопка submit активна: в связи с отменой автоматической валидации - остался работать Enter
+  const btnSubmit = event.target.querySelector(".popup__button")
 
-  closePopup(photoAddPopup);
+  if (!btnSubmit.classList.contains("popup__button_disabled")) {
+    const namePhoto = formNamePhotoInput.value;
+    const linkPhoto = formLinkPhotoInput.value;
+    renderCard(namePhoto, linkPhoto)
+    closePopup(photoAddPopup);
+  }
+
+
+
 }
 // функция открытия полноразмерного фото
 function viewPhoto(link, title) {
@@ -84,11 +97,20 @@ function renderCard(title, link) {
 
 
 // обработчики открытия и закрытия popup
+
 // click для редактирования профиля
 profileEditBtn.addEventListener("click", () => {
   openPopup(profileEdit);
   formNameInput.value = document.querySelector(".profile__name").textContent; // запись в поле формы значений из html
   formAboutInput.value = document.querySelector(".profile__about").textContent; // запись в поле формы значений из html
+  enableValidation ({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+  })
 });
 profileEditBtnClose.addEventListener("click", () => closePopup(profileEdit)); // click для закрытия редактирования профиля
 
@@ -102,6 +124,22 @@ photoAddEditBtnClose .addEventListener("click", () => closePopup(photoAddPopup))
 
 // click для закрытия popup полноразмерного фото
 photoViewPopup.querySelector(".popup__btn-close").addEventListener("click", () => closePopup(photoViewPopup));
+
+// закрытие всех popup при нажатии на Escape
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    popups.forEach(popup => closePopup(popup))
+    // closePopup(photoViewPopup)
+  }
+})
+
+// закрытие всех popup при Click на месте tardet- popup
+document.addEventListener("click", (evt) => {
+  if (evt.target.classList.contains("popup")) {
+    popups.forEach(popup => closePopup(popup))
+    };
+
+})
 
 formProfileElement.addEventListener('submit', handleSubmitProfileForm );
 formElementAddPhoto.addEventListener('submit', handleSubmitAddPhotoForm);
