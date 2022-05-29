@@ -27,7 +27,7 @@ function checkInputValidity (formElement, inputElement, dataObject) {
 
     inputList.forEach((inputElement) => {
       toggleButtonState (inputList, buttonElement, dataObject); //  начальная установка состояния кнопок submit
-      checkInputValidity(formElement, inputElement, dataObject);
+      // checkInputValidity(formElement, inputElement, dataObject);
 
       // вешаем слушатель на нобор текста в каждом input
       inputElement.addEventListener('input', function () {
@@ -44,11 +44,20 @@ function hasInvalidInput (inputList) {
     return !inputElement.validity.valid
   })
 }
+function inactivateSubmitButton (buttonElement, dataObject) {
+  buttonElement.classList.add(dataObject.inactiveButtonClass); // рисуем неактивную кнопку
+  buttonElement.setAttribute("disabled", ""); // делаем функцию submit - disabled
+}
+function activateSubmitButton (buttonElement, dataObject) {
+  buttonElement.classList.remove(dataObject.inactiveButtonClass); // снимаем класс неактивной кнопки
+  buttonElement.removeAttribute("disabled", "") // убираем атрибут disabled
+}
+// переключение кнопки submit в акивное и неактиивное состояние
 function toggleButtonState (inputList, buttonElement, dataObject) {
   if (hasInvalidInput (inputList)) {
-    buttonElement.classList.add(dataObject.inactiveButtonClass)
+    inactivateSubmitButton(buttonElement, dataObject);
   } else {
-    buttonElement.classList.remove(dataObject.inactiveButtonClass)
+    activateSubmitButton(buttonElement, dataObject);
   }
 }
 
@@ -59,11 +68,4 @@ function enableValidation (dataObject) {
   })
 };
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
+enableValidation(dataValidation);

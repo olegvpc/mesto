@@ -18,7 +18,7 @@
   transition: opacity .3s linear;
 }
 
-.popup__btn-save:hover {
+.popup__button:hover {
   opacity: .8;
 }
 
