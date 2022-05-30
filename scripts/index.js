@@ -65,7 +65,7 @@ function handleSubmitProfileForm (event) {
 
   document.querySelector(".profile__name").textContent = editedValueName; // присваивание введенных имени в DOM
   document.querySelector(".profile__about").textContent = editedValueAbout; // присваивание введенного описания профайла в DOM
-
+  inactivateSubmitButton (event.target.querySelector(".popup__button"), dataValidation);
   closePopup(profileEdit);
 }
 // функции submit формы добавления фото
