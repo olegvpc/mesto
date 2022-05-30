@@ -38,8 +38,8 @@ function closePopupEscape (evt) {
 };
 // закрытие popup при Click на Overlay
 function closePupupOverlay (evt) {
-  if (evt.target.classList.contains("popup")) {
-    const popup = evt.target;
+  const popup = evt.target;
+  if (popup.classList.contains("popup")) {
     closePopup(popup)
     };
 };
@@ -78,6 +78,7 @@ function handleSubmitAddPhotoForm (event) {
 
     renderCard(cardsContainer, newCardData);
     event.target.reset(); // очищаем поля  input при отправке формы
+    inactivateSubmitButton (event.target.querySelector(".popup__button"), dataValidation);
     closePopup(photoAddPopup);
 }
 // функция открытия полноразмерного фото
@@ -125,15 +126,13 @@ profileEditBtn.addEventListener("click", () => {
   formAboutInput.value = document.querySelector(".profile__about").textContent; // запись в поле формы значений из html
 
   openPopup(profileEdit);
-  /* enableValidation (dataValidation) // если убрать начальную валидацию (запуск этой функции), то кнопка submit
-  // в профиле будет неактивна не смотря на то, что поля изначально заполнены валидно */
 });
 profileEditBtnClose.addEventListener("click", () => closePopup(profileEdit)); // click для закрытия редактирования профиля
 
 // click для добавления фото
 photoAddBtn.addEventListener("click", () => {
-  formNamePhotoInput.value = ""; // очистка поля формы при открытии - при отправке input очищается reset
-  formLinkPhotoInput.value = ""; // очистка поля формы при открытии - при отправке input очищается reset
+  // formNamePhotoInput.value = ""; // очистка поля формы при открытии - при отправке input очищается reset
+  // formLinkPhotoInput.value = ""; // очистка поля формы при открытии - при отправке input очищается reset
   openPopup(photoAddPopup);
 });
 photoAddEditBtnClose .addEventListener("click", () => closePopup(photoAddPopup)); // click для закрытия добавления фото

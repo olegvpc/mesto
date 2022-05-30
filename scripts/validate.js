@@ -24,10 +24,10 @@ function checkInputValidity (formElement, inputElement, dataObject) {
     const inputList = Array.from(formElement.querySelectorAll(dataObject.inputSelector));
     const buttonElement = formElement.querySelector(dataObject.submitButtonSelector)
 
-
+      //  начальная установка состояния кнопок submit
+    toggleButtonState (inputList, buttonElement, dataObject);
     inputList.forEach((inputElement) => {
-      toggleButtonState (inputList, buttonElement, dataObject); //  начальная установка состояния кнопок submit
-      // checkInputValidity(formElement, inputElement, dataObject);
+      // checkInputValidity(formElement, inputElement, dataObject); // при вызове popup подсвечивает сразу невалидные поля
 
       // вешаем слушатель на нобор текста в каждом input
       inputElement.addEventListener('input', function () {
@@ -61,10 +61,12 @@ function toggleButtonState (inputList, buttonElement, dataObject) {
   }
 }
 
-function enableValidation (dataObject) {
-  const formList = Array.from(document.querySelectorAll(dataObject.formSelector))
+function enableValidation ({formSelector, ...restDataValidation}) {
+  // console.log(formSelector, {...restDataValidation})
+  const formList = Array.from(document.querySelectorAll(formSelector))
   formList.forEach(form => {
-    setEventListeners(form, dataObject)
+    setEventListeners(form, {...restDataValidation}) // спасибо - интересно, но если и дальше использовать ...rest
+    //  - то код становится трудно читаемым и легко запутаться с теми данными, которые остались в объекте.
   })
 };
 
