@@ -20,23 +20,31 @@ function checkInputValidity (formElement, inputElement, dataObject) {
   }
 };
 
-  function setEventListeners (formElement, dataObject) {
-    const inputList = Array.from(formElement.querySelectorAll(dataObject.inputSelector));
-    const buttonElement = formElement.querySelector(dataObject.submitButtonSelector)
+function setEventListeners (formElement, dataObject) {
+  const inputList = Array.from(formElement.querySelectorAll(dataObject.inputSelector));
+  const buttonElement = formElement.querySelector(dataObject.submitButtonSelector)
 
-      //  начальная установка состояния кнопок submit
-    toggleButtonState (inputList, buttonElement, dataObject);
-    inputList.forEach((inputElement) => {
-      // checkInputValidity(formElement, inputElement, dataObject); // при вызове popup подсвечивает сразу невалидные поля
+    //  начальная установка состояния кнопок submit
+  toggleButtonState (inputList, buttonElement, dataObject);
+  inputList.forEach((inputElement) => {
+    // checkInputValidity(formElement, inputElement, dataObject); // при вызове popup подсвечивает сразу невалидные поля
 
-      // вешаем слушатель на нобор текста в каждом input
-      inputElement.addEventListener('input', function () {
-        checkInputValidity(formElement, inputElement, dataObject);
-        toggleButtonState (inputList, buttonElement, dataObject);
+    // вешаем слушатель на нобор текста в каждом input
+    inputElement.addEventListener('input', function () {
+      checkInputValidity(formElement, inputElement, dataObject);
+      toggleButtonState (inputList, buttonElement, dataObject);
 
-      });
     });
-  };
+  });
+};
+
+function clearMessageValidation () {
+  const allForms = document.querySelectorAll(".popup__form");
+  allForms.forEach(form => {
+    const inputsInForm = form.querySelectorAll(".popup__input");
+    inputsInForm.forEach(input => hideInputError (form, input, dataValidation))
+  })
+}
 
 function hasInvalidInput (inputList) {
   // inputList.forEach(input => console.log(input.value, input.validationMessage))

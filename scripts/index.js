@@ -114,16 +114,18 @@ function createCard(cardData) {
 }
 
 function renderCard(photoContainer, cardData) {
-    const newCard = createCard(cardData);
-    photoContainer.prepend(newCard);
-  }
-
-// обработчики открытия и закрытия popup
+  const newCard = createCard(cardData);
+  photoContainer.prepend(newCard);
+}
 
 // click для редактирования профиля
 profileEditBtn.addEventListener("click", () => {
   formNameInput.value = document.querySelector(".profile__name").textContent; // запись в поле формы значений из html
   formAboutInput.value = document.querySelector(".profile__about").textContent; // запись в поле формы значений из html
+
+  clearMessageValidation ()
+
+  // enableValidation(dataValidation); // если повесть проверку валидности про открытии формы, то кнопка сразу будет active - а это не нужно
 
   openPopup(profileEdit);
 });
@@ -133,6 +135,7 @@ profileEditBtnClose.addEventListener("click", () => closePopup(profileEdit)); //
 photoAddBtn.addEventListener("click", () => {
   // formNamePhotoInput.value = ""; // очистка поля формы при открытии - при отправке input очищается reset
   // formLinkPhotoInput.value = ""; // очистка поля формы при открытии - при отправке input очищается reset
+  clearMessageValidation () // очищаем сообщения об ошибке
   openPopup(photoAddPopup);
 });
 photoAddEditBtnClose .addEventListener("click", () => closePopup(photoAddPopup)); // click для закрытия добавления фото
