@@ -1,5 +1,10 @@
+import { initialCards } from "./utils/cards.js";
+import Card from "./components/Card.js";
+import FormValidator from "./components/FormValidator.js";
+
+
 //  popup на корректировку profile
-const popups = document.querySelectorAll(".popup")
+const popups = document.querySelectorAll(".popup");
 const profileEditBtn = document.querySelector(".profile__edit-btn"); // кнопка редактирования профайла
 const profileEdit = document.querySelector(".popup_type_profile"); // popup редактирования профайла
 const profileEditBtnClose = document.querySelector("#popup-profile-btn-close"); // кнопка закрытия popup профайла
@@ -29,6 +34,9 @@ const dataValidation = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 }
+
+const profileValid = new FormValidator(dataValidation, formProfileElement);
+const addCardValid = new FormValidator(dataValidation, formElementAddPhoto)
 
 // закрытие всех popup при нажатии на Escape
 function closePopupEscape (evt) {
@@ -65,7 +73,7 @@ function handleSubmitProfileForm (event) {
 
   document.querySelector(".profile__name").textContent = editedValueName; // присваивание введенных имени в DOM
   document.querySelector(".profile__about").textContent = editedValueAbout; // присваивание введенного описания профайла в DOM
-  inactivateSubmitButton (event.target.querySelector(".popup__button"), dataValidation);
+
   closePopup(profileEdit);
 }
 // функции submit формы добавления фото
@@ -78,64 +86,35 @@ function handleSubmitAddPhotoForm (event) {
 
     renderCard(cardsContainer, newCardData);
     event.target.reset(); // очищаем поля  input при отправке формы
-    inactivateSubmitButton (event.target.querySelector(".popup__button"), dataValidation);
     closePopup(photoAddPopup);
 }
+
+function renderCard(photoContainer, cardData) {
+  const newCard = new Card(cardData, "#card-template"); // новый экземпляр класса Card
+  photoContainer.prepend(newCard.generateCard());
+}
 // функция открытия полноразмерного фото
-function viewPhoto(cardData) {
+export const viewPhoto = (cardData) => {
   photoViewPopup.querySelector(".popup__photo").src = cardData.link;
   photoViewPopup.querySelector(".popup__photo").alt = cardData.name;
   photoViewPopup.querySelector(".popup__image-title").textContent = cardData.name;
   openPopup(photoViewPopup);
  }
-// функция обработчика like -сердечка для каждого Фото
-function toggleLikeButton (evt) {
-  evt.target.classList.toggle("card__like_active");
-}
-
- // Функция создания card в cards-list и просмотра фото включая слушатели like и delete
-function createCard(cardData) {
-  const cardTemplate = document.querySelector('#card-template').content;
-  const cardElement = cardTemplate.querySelector('.cards__item').cloneNode(true);
-
-  cardElement.querySelector('.card__image').src = cardData.link;
-  cardElement.querySelector('.card__image').alt = cardData.name;
-  cardElement.querySelector('.card__title').textContent = cardData.name;
-
-  // подключение события на like
-  cardElement.querySelector(".card__like").addEventListener("click", toggleLikeButton);
-
-  // подключение события на delete-урну
-  cardElement.querySelector(".card__delete-btn").addEventListener("click", () => cardElement.remove());
-
-  // подключение события (только на картинку) на открытие полного фото
-  cardElement.querySelector(".card__image").addEventListener("click", () => viewPhoto(cardData));
-  return cardElement
-}
-
-function renderCard(photoContainer, cardData) {
-  const newCard = createCard(cardData);
-  photoContainer.prepend(newCard);
-}
-
 // click для редактирования профиля
 profileEditBtn.addEventListener("click", () => {
   formNameInput.value = document.querySelector(".profile__name").textContent; // запись в поле формы значений из html
   formAboutInput.value = document.querySelector(".profile__about").textContent; // запись в поле формы значений из html
 
-  clearMessageValidation ()
-
-  // enableValidation(dataValidation); // если повесть проверку валидности про открытии формы, то кнопка сразу будет active - а это не нужно
+  profileValid.inactiveButtonSubmit(); // при открытии popup делает кнопку неактивной, чтобы нельзы было сохранить, если нет изменений формы
 
   openPopup(profileEdit);
 });
+
 profileEditBtnClose.addEventListener("click", () => closePopup(profileEdit)); // click для закрытия редактирования профиля
 
 // click для добавления фото
 photoAddBtn.addEventListener("click", () => {
-  // formNamePhotoInput.value = ""; // очистка поля формы при открытии - при отправке input очищается reset
-  // formLinkPhotoInput.value = ""; // очистка поля формы при открытии - при отправке input очищается reset
-  clearMessageValidation () // очищаем сообщения об ошибке
+  addCardValid.resetValidation()
   openPopup(photoAddPopup);
 });
 photoAddEditBtnClose .addEventListener("click", () => closePopup(photoAddPopup)); // click для закрытия добавления фото
@@ -148,3 +127,7 @@ formElementAddPhoto.addEventListener('submit', handleSubmitAddPhotoForm);
 
 // Начальное добавление 6 card из заготовленного массива initialCards
 initialCards.forEach((cardData) => renderCard(cardsContainer, cardData));
+
+// Валидация
+profileValid.enableValidation();
+addCardValid.enableValidation();
