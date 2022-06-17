@@ -43,7 +43,8 @@ const cardElementValid = new FormValidator(dataValidation, formElementAddPhoto);
 // закрытие всех popup при нажатии на Escape
 function closePopupEscape (evt) {
   if (evt.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_opened");
+    const openedPopup = document.querySelector(".popup_opened"); // спасибо - я все не мог понять как отловить нужный popup
+    // а он ведь один :-)
     closePopup(openedPopup);
   };
 };
