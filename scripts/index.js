@@ -43,15 +43,14 @@ const cardElementValid = new FormValidator(dataValidation, formElementAddPhoto);
 // закрытие всех popup при нажатии на Escape
 function closePopupEscape (evt) {
   if (evt.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_opened"); // спасибо - я все не мог понять как отловить нужный popup
-    // а он ведь один :-)
+    const openedPopup = document.querySelector(".popup_opened");
     closePopup(openedPopup);
   };
 };
 // закрытие popup при Click на Overlay
 function closePupupOverlay (evt) {
   const pushedElement = evt.target;
-  const openedPopup = document.querySelector(".popup_opened")
+  const openedPopup = evt.currentTarget; // элемент popup целиком - на нем установлен слушатель popup
   if (pushedElement.classList.contains("popup") || pushedElement.classList.contains("popup__btn-close")) {
     closePopup(openedPopup)
     };
