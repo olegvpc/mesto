@@ -1,9 +1,10 @@
-import { viewPhoto } from "../index.js";
+// import { viewPhoto } from "../../pages/index.js";
 export default class Card {
-  constructor (data, templateSelector) {
+  constructor ({ data, handleCardClick }, templateSelector) {
     this._data = data;
     this._name = data.name;
     this._link = data.link;
+    this._handleCardClick = handleCardClick;
     this._templateSelector = templateSelector;
   }
   // создание клона новой Card из шаблона
@@ -34,7 +35,10 @@ export default class Card {
   }
   // формируем слушатели на карте - like - delete - preview-full-size
   _setEventListeners () {
-    this._cardImage.addEventListener("click", () => viewPhoto(this._data));
+    this._cardImage.addEventListener('click', () => {
+      this._handleCardClick(this._data)
+  });
+    // this._cardImage.addEventListener("click", () => viewPhoto(this._data));
     this._cardLikeBtn.addEventListener("click", () => this._toggleLikeButton());
     this._cardDeleteBtn.addEventListener("click", () => this._deleteCard());
   }
