@@ -29,6 +29,7 @@ export default class Card {
   }
   _deleteCard () {
     this._cardElement.remove();
+    this._element = null;
   }
   _toggleLikeButton() {
     this._cardLikeBtn.classList.toggle("card__like_active");
@@ -38,7 +39,6 @@ export default class Card {
     this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._data)
   });
-    // this._cardImage.addEventListener("click", () => viewPhoto(this._data));
     this._cardLikeBtn.addEventListener("click", () => this._toggleLikeButton());
     this._cardDeleteBtn.addEventListener("click", () => this._deleteCard());
   }

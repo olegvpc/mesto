@@ -23,8 +23,11 @@ export default class Popup {
   }
 
   // Установка слушателей
+  // странно, что click отрабатывает некорректно
+  // попап закрывается если, например, выделять текст в поле мышью и вынести курсор за границы попапа
+  // click должен вызывается при mousedown , а затем mouseup над одним и тем же элементом, если использовалась левая кнопка мыши.
   setEventListeners() {
-      this._popup.addEventListener('click', (evt) => {
+      this._popup.addEventListener('mousedown', (evt) => {
           if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__btn-close')) {
               this.close();
           }

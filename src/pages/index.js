@@ -48,34 +48,29 @@ const popupEditProfile = new PopupWithForm('.popup_type_profile', (userData) => 
   popupEditProfile.close()
 
 });
-// экземпляр popup добавления фото
-const popupAddPhoto = new PopupWithForm('.popup_type_add', (photoData) => {
-  console.log(photoData)
-  // создание экземпляра карточки и генерация данных в него
+// функция создания элемента карточки
+const createCard = (data) => {
   const card = new Card({
-    data: photoData,
+    data: data,
     handleCardClick: (cardData) => {
       popupWithImage.open(cardData)
     }
   }, "#card-template");
-  const cardElement = card.generateCard();
+  return card.generateCard();
+}
+// экземпляр popup добавления фото
+const popupAddPhoto = new PopupWithForm('.popup_type_add', (inputData) => {
+  const cardElement = createCard(inputData);
   // использование созданного экземпляра вставки разметки
   cardList.addItem(cardElement);
 
   popupAddPhoto.close()
 })
-
+// экземпляр для создания элемениа карточки с встраивания ее в DOM
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-      const card = new Card({
-        data: item,
-        handleCardClick: (cardData) => {
-          popupWithImage.open(cardData)
-        }
-      }, "#card-template");
-      const cardElement = card.generateCard();
-
+      const cardElement = createCard(item);
       cardList.addItem(cardElement);
     }
   }, ".cards__list");
@@ -99,7 +94,7 @@ photoAddBtn.addEventListener("click", () => {
 });
 
 // Начальное добавление 6 card из заготовленного массива initialCards
-cardList.renderItems();
+cardList.renderItems(initialCards);
 
 // запуск слушателей
 popupWithImage.setEventListeners();
