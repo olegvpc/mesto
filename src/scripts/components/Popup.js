@@ -17,6 +17,7 @@ export default class Popup {
 
   // Закрытие клавишей ESC
   _handleEscClose = (evt) => {
+      // console.log(evt.keyCode)
       if (evt.key === 'Escape') {
           this.close();
       }
