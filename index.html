@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Место" name="description">
+    <meta content="html, css, javascript" name="keywords">
+    <meta content="Ткач Олег" name="author">
+    <title>Место</title>
+    <link rel="shortcut icon" href="#">
+    <!-- <link rel="stylesheet" href="./pages/index.css"> -->
+  <script defer src="main.js"></script><link href="main.css" rel="stylesheet"></head>
+  <body class="page">
+
+    <div class="page__content">
+      <header class="page__header header">
+        <a href="#">
+          <img class="header__logo transition" src='images/logo.a307e1c403338846f8a4.svg' alt="логотип сайта Место">
+        </a>
+      </header>
+        <!-- block MAIN -->
+      <main class="page__main content">
+        <section class="profile">
+          <img class="profile__avatar" src="images/image.c15cb08ab8ecfaba54c6.jpg" alt="Аватар профиля">
+          <div class="profile__info">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <!-- Перенос текста должен превращаться в точки -->
+            <button class="profile__edit-btn transition" title="Редактировать профиль" type="button"></button>
+            <p class="profile__about">Исследователь океана</p>
+            <!-- Перенос текста должен превращаться в точки -->
+          </div>
+          <button class="profile__add-btn transition" title="Добавить новую фотографию" type="button"></button>
+        </section>
+
+          <!--block CARDS-->
+        <section class="cards">
+          <ul class="cards__list">
+
+          </ul>
+        </section>
+          <!--end CARDS-->
+
+          <!-- template card -->
+        <template id="card-template">
+          <li class="cards__item">
+            <figure class="card">
+              <button class="card__delete-btn transition" type="button"></button>
+              <img class="card__image" src=# alt="Изображение на фото">
+              <div class="card__wrapper">
+                <h2 class="card__title"></h2>
+                <button class="card__like transition"></button>
+              </div>
+            </figure>
+          </li>
+        </template>
+          <!-- end template card -->
+
+      </main>
+
+      <footer class="page__footer footer">
+        <p class="footer__copyright">&copy;2022 Mesto Russia</p>
+      </footer>
+
+        <!--popup редактирования профиля-->
+      <div class="popup popup_type_profile">
+        <div class="popup__container">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <form class="popup__form" id="popup-form-profile" name="form-change-name" novalidate>
+            <fieldset class="popup__fieldset">
+              <input class="popup__input" id="popup-name" name="new-name" type="text"
+              placeholder="Введите свое имя" autocomplete="off" minlength="2" maxlength="40" required>
+              <span class="popup__input-error" id="popup-name-error">Error- text name</span>
+              <input class="popup__input" id="popup-about" name="new-about" type="text"
+              placeholder="Введите описание" autocomplete="off" minlength="2" maxlength="200" required>
+              <span class="popup__input-error" id="popup-about-error">Error- text about</span>
+              <button class="popup__button transition" name="submit" type="submit">Сохранить</button>
+            </fieldset>
+          </form>
+          <button aria-label="закрыть форму" class="popup__btn-close transition" id="popup-profile-btn-close" type="button"></button>
+        </div>
+      </div>
+
+        <!--popup добавления нового фото-->
+      <div class="popup popup_type_add">
+        <div class="popup__container">
+          <h2 class="popup__title">Новое место</h2>
+          <form class="popup__form" id="popup-form-add-photo" name="form-add-photo" novalidate>
+            <fieldset class="popup__fieldset">
+              <input class="popup__input" id='popup-add-name-photo' name="name" type="text"
+              placeholder="Название" autocomplete="off" minlength="2" maxlength="30" required>
+              <span class="popup__input-error" id="popup-add-name-photo-error">Error-add-name</span>
+              <input class="popup__input" id='link' name="link" type="url"
+              placeholder="Ссылка на картинку" autocomplete="off" required>
+              <span class="popup__input-error" id="link-error">Error-add-link</span>
+              <button class="popup__button transition" name="submit" type="submit">Создать</button>
+            </fieldset>
+          </form>
+          <button aria-label="закрыть форму" class="popup__btn-close transition" id="popup-add-photo-btn-close" type="button"></button>
+        </div>
+      </div>
+
+        <!--popup открытия полноразмерного фото-->
+      <div class="popup popup_show-img" data-type="image">
+        <figure class="popup__frame">
+          <button aria-label="закрыть форму" class="popup__btn-close transition" type="button"></button>
+          <img alt="#" class="popup__photo" src="#">
+          <p class="popup__image-title"></p>
+        </figure>
+      </div>
+
+    </div>  <!-- Конец блока container -->
+    <!-- <script type="module" src="./pages/index.js"></script> -->
+  </body>
+</html>
+
