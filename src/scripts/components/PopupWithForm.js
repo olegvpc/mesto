@@ -6,6 +6,8 @@ export default class PopupWithForm extends Popup {
 
         this._callbackSubmit = callbackSubmit;
         this._popupForm = this._popup.querySelector('.popup__form');
+        this._popupButton = this._popupForm.querySelector('.popup__button');
+        this._buttonText = this._popupButton.textContent; // сохранение начальной надписи на кнопке
         this._inputList = Array.from(this._popupForm.querySelectorAll('.popup__input'));
     }
 
@@ -18,6 +20,13 @@ export default class PopupWithForm extends Popup {
         return this._newValues;
     }
 
+    showLoading(isLoading) {
+      if (isLoading) {
+          this._popupButton.textContent = 'Сохранение...';
+      } else {
+          this._popupButton.textContent = this._buttonText;
+      }
+    }
     // Добавляет обработчик клика иконке закрытия и обработчик сабмита формы.
     setEventListeners() {
         super.setEventListeners();

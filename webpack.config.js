@@ -11,10 +11,11 @@ module.exports = {
   // Chosen mode tells webpack to use its built-in optimizations accordingly.
   entry: {
     main: "./src/pages/index.js"
-  }, // string | object | array
-  // defaults to ./src
-  // Here the application starts executing
-  // and webpack starts bundling
+    }, 
+    // string | object | array
+    // defaults to ./src
+    // Here the application starts executing
+    // and webpack starts bundling
   output: {
     // options related to how webpack emits results
     path:path.resolve(__dirname, "dist"), // string (default)
@@ -25,7 +26,8 @@ module.exports = {
     static: path.resolve(__dirname, './dist'), // путь, куда "смотрит" режим разработчика
     compress: true, // это ускорит загрузку в режиме разработки
     port: 8080, // порт, чтобы открывать сайт по адресу localhost:8080, но можно поменять порт
-    open: true // сайт будет открываться сам при запуске npm run dev
+    open: true, // сайт будет открываться сам при запуске npm run dev
+    // hot: true
   },
   module: {
     rules: [ 

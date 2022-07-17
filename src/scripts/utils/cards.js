@@ -24,3 +24,4 @@ export const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+// всегда новая фотка https://source.unsplash.com/random/1920x1080/?wallpaper,landscape

@@ -5,8 +5,7 @@
   font-weight: normal;
   font-size: 14px;
   line-height: 1.21;
-  margin: 0 auto;
-
+  margin: 36px auto 36px;
 }
 
 @media (max-width: 568px) {

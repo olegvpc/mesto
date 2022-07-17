@@ -21,7 +21,10 @@
         <!-- block MAIN -->
       <main class="page__main content">
         <section class="profile">
-          <img class="profile__avatar" src="./images/image.jpg" alt="Аватар профиля">
+          <div class="profile__avatar-container">
+            <img class="profile__avatar" src="./images/image.jpg" alt="Аватар профиля">
+            <button type="button" class="profile__avatar-btn" aria-label="Обновить аватар"></button>
+          </div>
           <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <!-- Перенос текста должен превращаться в точки -->
@@ -48,7 +51,10 @@
               <img class="card__image" src=# alt="Изображение на фото">
               <div class="card__wrapper">
                 <h2 class="card__title"></h2>
-                <button class="card__like transition"></button>
+                <div class="card__like-container">
+                  <button class="card__like transition"></button>
+                  <span class="card__like-counter">12</span>
+                </div>
               </div>
             </figure>
           </li>
@@ -106,6 +112,35 @@
           <img alt="#" class="popup__photo" src="#">
           <p class="popup__image-title"></p>
         </figure>
+      </div>
+
+        <!--popup подтверждения удаления фото-->
+      <div class="popup popup_type_delete">
+        <div class="popup__container">
+          <h2 class="popup__title">Вы уверены?</h2>
+          <form class="popup__form" novalidate>
+            <fieldset class="popup__fieldset">
+              <button class="popup__button transition" type="submit">Да</button>
+            </fieldset>
+          </form>
+          <button aria-label="закрыть форму" class="popup__btn-close" type="reset"></button>
+        </div>
+      </div>
+
+        <!-- popup изменения аватара-->
+      <div class="popup popup_type_avatar">
+        <div class="popup__container">
+          <h2 class="popup__title">Обновить аватар</h2>
+          <form class="popup__form" id="popup-form-avatar" name="Avatar" novalidate>
+            <fieldset class="popup__fieldset">
+              <input name="avatarLink" type="url" id="avatar-link" class="popup__input" placeholder="Ссылка на картинку аватара"
+              autocomplete="off" required>
+              <p class='popup__input-error' id='avatar-link-error'></p>
+              <button class="popup__button transition" type="submit">Сохранить</button>
+            </fieldset>
+          </form>
+          <button class="popup__btn-close page__button" type="button" aria-label="Закрыть окно"></button>
+        </div>
       </div>
 
     </div>  <!-- Конец блока container -->
