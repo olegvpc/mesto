@@ -8,7 +8,7 @@ import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import FormValidator from "../scripts/components/FormValidator.js";
 import UserInfo from "../scripts/components/UserInfo.js";
 import Api from "../scripts/components/Api";
-import PopupWithConfirm from "../scripts/components/PopupWithConfirm.js";
+import PopupWithConfirmation from "../scripts/components/PopupWithConfirmation.js";
 
 const avatarEditButton = document.querySelector('.profile__avatar-btn')
 const profileEditBtn = document.querySelector(".profile__edit-btn"); // кнопка редактирования профайла
@@ -39,7 +39,7 @@ const avatarValid = new FormValidator(dataValidation, formElementAvatar);
 
 
 const popupWithImage = new PopupWithImage('.popup_show-img');
-const popupConfirm = new PopupWithConfirm('.popup_type_delete');
+const popupConfirm = new PopupWithConfirmation('.popup_type_delete');
 
 
 const userInfo = new UserInfo({
@@ -160,7 +160,7 @@ const popupAddPhoto = new PopupWithForm('.popup_type_add', (inputData) => {
     .then(cardData => {
       // console.log(cardData); // ответ API с полными данными карточки {likes:, _id:, owner, name:, link:,...}
       const cardElement = createCard(cardData);
-      // использование возвращенного с API экземпляра вставки в разметку
+      // использование возвращенного с API экземпляра для вставки в разметку
       cardList.addItem(cardElement);
       popupAddPhoto.close()
     })

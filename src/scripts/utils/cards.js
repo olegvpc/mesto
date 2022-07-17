@@ -25,3 +25,5 @@ export const initialCards = [
   }
 ];
 // всегда новая фотка https://source.unsplash.com/random/1920x1080/?wallpaper,landscape
+// ссылка на аватар https://wampi.ru/image/RrOGyzc
+// прямая ссылка https://im.wampi.ru/2022/07/17/Oleg-photo.jpg
