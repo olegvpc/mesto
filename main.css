@@ -46,6 +46,10 @@
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/profile/profile.css ***!
   \********************************************************************************************************************************************************/
 .profile{align-items:center;display:flex;flex-direction:row;justify-content:space-between;margin:0 auto}@media screen and (max-width:568px){.profile{flex-direction:column}}
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/profile/__avatar-container/profile__avatar-container.css ***!
+  \*********************************************************************************************************************************************************************************************/
+.profile__avatar-container{height:120px;position:relative;width:120px}
 /*!*************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/profile/__avatar/profile__avatar.css ***!
   \*************************************************************************************************************************************************************************/
@@ -54,6 +58,10 @@
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/profile/__add-btn/profile__add-btn.css ***!
   \***************************************************************************************************************************************************************************/
 .profile__add-btn{background-color:#000;background-image:url(images/add_button.6f86ece55e54220c5485.svg);background-position:50% 50%;background-repeat:no-repeat;border:2px solid #fff;height:50px;margin:35px 0 auto auto;outline:none;padding:0;width:150px}@media screen and (max-width:984px){.profile__add-btn{margin-right:0;max-width:382px}}@media screen and (max-width:568px){.profile__add-btn{margin:36px 0 0;min-width:282px}}
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/profile/__avatar-btn/profile__avatar-btn.css ***!
+  \*********************************************************************************************************************************************************************************/
+.profile__avatar-btn{background-color:transparent;border:none;border-radius:50%;height:120px;left:0;margin:0;padding:0;position:absolute;top:0;transition:background-color .3s ease;width:120px}.profile__avatar-btn:hover{background-color:rgba(0,0,0,.8);background-image:url(images/edit_avatar.a086f758840ae814ecde.svg);background-position:50%;background-repeat:no-repeat;cursor:pointer}
 /*!*********************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/profile/__info/profile__info.css ***!
   \*********************************************************************************************************************************************************************/
