@@ -35,7 +35,7 @@ export default class Card {
       this._cardDeleteBtn.style.display = 'none';
     }
     // проверка есть ли уже мой лайк на карточке в базе
-    if (this._likes.find(elem => elem._id ===this._userId)) {
+    if (this._hasLikeState ()) {
       this._cardLikeBtn.classList.add("card__like_active")
     }
     this._setEventListeners();
@@ -47,37 +47,33 @@ export default class Card {
     this._cardElement.remove();
     this._element = null;
   }
-  // _toggleLikeButton() {
-  //   this._cardLikeBtn.classList.toggle("card__like_active");
-  // }
-  // _handleLikeClick () {
 
-  // }
-  _checkLikeState () {
-    return this._cardLikeBtn.classList.contains("card__like_active")
+  _hasLikeState () {
+    return this._likes.some(like => like._id ===this._userId)
   }
-  toggleLikeButton() {
-    if(!(this._checkLikeState())) {
+
+  _updateLikesView() {
+    this._likeCounter.textContent = this._likes.length;
+    if((this._hasLikeState())) {
       this._cardLikeBtn.classList.add("card__like_active");
-      this._likeCounter.textContent = ++this._likes.length;
     } else {
       this._cardLikeBtn.classList.remove("card__like_active");
-      this._likeCounter.textContent = --this._likes.length;
     }
   }
-
+  updateLikes(likes) {
+    this._likes = likes;
+    this._updateLikesView()
+  }
   // формируем слушатели на карте: preview-full-size + like + delete
   _setEventListeners () {
     this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._data)
   });
-    // this._cardLikeBtn.addEventListener("click", () => this._toggleLikeButton()); // просто переключалка лайка
     this._cardLikeBtn.addEventListener("click", () => {
-      this._handleLikeClick(this._checkLikeState(), this._id);
+      this._handleLikeClick(this._hasLikeState(), this._id);
     })
 
     this._cardDeleteBtn.addEventListener("click", () => {
-      // this._deleteCard(); // удаление элемента в разметке
       this._handleCardDelete(this._id) // удаление карточки на сервере через API
     });
   }

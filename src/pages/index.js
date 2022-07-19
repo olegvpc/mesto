@@ -58,23 +58,12 @@ const api = new Api({
   }
 });
 
-let userId = null
-
-// стучимся на сервер за данными пользователя
-api.getUserInfo()
-  .then(userData => {
+// стучимся на сервер за данными пользователя api.getUserInfo() +
+// стучимся на сервер за карточками api.getInitialCards()
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
     // console.log(userData); // начальная загрузка данных пользователя с сервера
-    userInfo.setUserInfo(userData)
-    userId = userInfo.getUserId()
-    // console.log(userId)
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-
-// стучимся на сервер за карточками
-api.getInitialCards()
-  .then(cards => {
+    userInfo.setUserInfo(userData);
     cardList.renderItems(cards);
   })
   .catch((err) => {
@@ -97,22 +86,26 @@ const createCard = (data) => {
           card.deleteCard();
           popupConfirm.close();
         })
-
       })
 
     },
     handleLikeClick: (isLike, cardId) => {
       if (isLike) {
         api.dislikeCard(cardId)
-        .then(() => card.toggleLikeButton())
+        .then((cardInfo) => {
+          // console.log(cardInfo) // вазвращает полную информацию о карточке
+          card.updateLikes(cardInfo.likes)
+        })
         .catch((error) => console.log(`Ошибка ${error} при удалении лайка`))
       } else {
         api.likeCard(cardId)
-        .then(() => card.toggleLikeButton())
+        .then((cardInfo) => {
+          card.updateLikes(cardInfo.likes)
+        })
         .catch((error) => console.log(`Ошибка ${error} при удалении лайка`))
       };
     }
-  }, "#card-template", userId);
+  }, "#card-template", userInfo.getUserId());
   return card.generateCard();
 }
 
@@ -122,7 +115,6 @@ const popupAvatarEdit = new PopupWithForm('.popup_type_avatar', (values) => {
   api.updateUserAvatar(values) // отпрвим данные на сервер (values = inpup из popup)
       .then((data) => {
         userInfo.setUserInfo(data); // ответ с сервера (data = полные данные профиля)
-        avatarValid.resetValidation();
         popupAvatarEdit.close();
       })
       .catch((err) => {

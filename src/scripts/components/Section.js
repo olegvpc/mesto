@@ -1,6 +1,5 @@
 export default class Section {
   constructor({ renderer }, containerSelector) {
-    // this._items = items; // массив данных для начальной отрисовки на странице
     this._renderer = renderer; // функция, которая отвечает за создание и отрисовку данных на странице
     this._container = document.querySelector(containerSelector); // контейнер куда вставлять карточки
   }
